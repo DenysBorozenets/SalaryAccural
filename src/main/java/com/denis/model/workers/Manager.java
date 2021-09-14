@@ -14,9 +14,9 @@ public class Manager extends Employee {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
+        if (!super.equals(o))
+            return false;
+        if (o instanceof Manager)
             return false;
         Manager manager = (Manager) o;
         return this.employeeList.equals(manager.employeeList);

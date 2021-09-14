@@ -1,13 +1,16 @@
 package com.denis.model.workers;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class OtherEmployee extends Employee{
+
     private String position;
     private String description;
 
     public OtherEmployee(String name, Date birthday, Date startWork, String position, String description) {
         super(name, birthday, startWork);
+        Objects.requireNonNull(position);
         this.position = position;
         this.description = description;
     }
@@ -30,10 +33,13 @@ public class OtherEmployee extends Employee{
 
     @Override
     public boolean equals(Object o) {
-        if (!super.equals(o) || !(o instanceof OtherEmployee))
+        if (!super.equals(o))
+            return false;
+        if (!(o instanceof OtherEmployee))
             return false;
 
         OtherEmployee otherEmployee = (OtherEmployee) o;
+
         return this.position.equals(otherEmployee.position) && this.description.equals(otherEmployee.description);
     }
 

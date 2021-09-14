@@ -4,19 +4,19 @@ import java.math.BigDecimal;
 
 public class Fund {
 
-    private Balance balance;
+    private Balance.Balanced balance;
     private BigDecimal sum;
 
-    public Fund(Balance balance, BigDecimal sum) {
+    public Fund(Balance.Balanced balance, BigDecimal sum) {
         this.balance = balance;
         this.sum = sum;
     }
 
-    public Balance getBalance() {
+    public Balance.Balanced getBalance() {
         return balance;
     }
 
-    public void setBalance(Balance balance) {
+    public void setBalance(Balance.Balanced balance) {
         this.balance = balance;
     }
 

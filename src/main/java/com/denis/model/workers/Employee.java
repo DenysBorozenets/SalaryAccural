@@ -1,16 +1,32 @@
 package com.denis.model.workers;
 
+import com.denis.model.Balance;
+
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 public class Employee {
-    final private String name;
-    final private Date birthday;
-    final private Date startWork;
 
+    private String name;
+    private Date birthday;
+    private Date startWork;
+    private BigDecimal salary;
+
+    /**
+     *
+     * @param name
+     * @param birthday
+     * @param startWork
+     */
     public Employee(String name, Date birthday, Date startWork) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(birthday);
+        Objects.requireNonNull(startWork);
         this.name = name;
         this.birthday = new Date(birthday.getTime());
         this.startWork = new Date(startWork.getTime());
+        this.salary = Balance.MIN_SALARY;
     }
 
     public String getName() {
@@ -25,6 +41,10 @@ public class Employee {
         return new Date(startWork.getTime());
     }
 
+    public BigDecimal getSalary() {
+        return salary;
+    }
+
     /**
      * from code example
      * @param o
@@ -36,10 +56,14 @@ public class Employee {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        //if (!(o instanceof Employee)) return false;
+        if (!(o instanceof Employee))
+            return false;
 
         Employee employee = (Employee) o;
-        return name.equals(employee.name) && birthday.equals(employee.birthday) && startWork.equals(employee.startWork);
+
+        return name.equals(employee.name)
+                && birthday.equals(employee.birthday)
+                && startWork.equals(employee.startWork);
     }
 
     /**
@@ -55,16 +79,4 @@ public class Employee {
         return result;
     }
 
-    /**
-     *
-     * @return
-     */
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "name='" + name + '\'' +
-                ", birthday=" + birthday +
-                ", startWork=" + startWork +
-                '}';
-    }
 }
