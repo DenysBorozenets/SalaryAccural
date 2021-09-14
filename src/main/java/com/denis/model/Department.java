@@ -1,14 +1,12 @@
 package com.denis.model;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class Department {
 
     private String name;
     //we use HashSet so that the same worker is not added in the future
-    private Set<Employee> listEmployee = new HashSet<>();
+    private List<Employee> listEmployee = new ArrayList<>();
 
     public Department(String name) {
         this.name = name;
@@ -22,12 +20,16 @@ public class Department {
         this.name = name;
     }
 
-    public Set<Employee> getListEmployee() {
+    public List<Employee> getListEmployee() {
         return listEmployee;
     }
 
-    public void setListEmployee(Set<Employee> listEmployee) {
+    public void setListEmployee(List<Employee> listEmployee) {
         this.listEmployee = listEmployee;
+    }
+
+    public void addEmployee(Employee employee) {
+        listEmployee.add(employee);
     }
 
     /**
