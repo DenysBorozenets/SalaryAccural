@@ -2,39 +2,27 @@ package com.denis.model;
 
 import java.util.Date;
 
-public class Employee {
-    private String name;
-    private Date birthday;
-    private Date startWork;
+public final class Employee {
+    final private String name;
+    final private Date birthday;
+    final private Date startWork;
 
     public Employee(String name, Date birthday, Date startWork) {
         this.name = name;
-        this.birthday = birthday;
-        this.startWork = startWork;
+        this.birthday = new Date(birthday.getTime());
+        this.startWork = new Date(startWork.getTime());
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+        return new Date(birthday.getTime());
     }
 
     public Date getStartWork() {
-        return startWork;
-    }
-
-    public void setStartWork(Date startWork) {
-        this.startWork = startWork;
+        return new Date(startWork.getTime());
     }
 
     /**
@@ -67,6 +55,10 @@ public class Employee {
         return result;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "Employee{" +
