@@ -7,7 +7,6 @@ import java.util.*;
 public class Department {
 
     private String name;
-    //we use HashSet so that the same worker is not added in the future
     private List<Employee> listEmployee = new ArrayList<>();
 
     public Department(String name) {
@@ -36,6 +35,7 @@ public class Department {
 
     /**
      * from code example
+     *
      * @param o
      * @return
      */
@@ -48,11 +48,10 @@ public class Department {
         //if (!(o instanceof Employee)) return false;
 
         Department department = (Department) o;
-        return name.equals(department.name) && Objects.equals(listEmployee, department.listEmployee);
+        return name.equals(department.name) && listEmployee.equals(department.listEmployee);
     }
 
     /**
-     *
      * @return
      */
     @Override

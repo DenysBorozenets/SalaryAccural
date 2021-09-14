@@ -3,7 +3,7 @@ package com.denis.model.workers;
 import java.util.Date;
 import java.util.Objects;
 
-public class OtherEmployee extends Employee{
+public class OtherEmployee extends Employee {
 
     private String position;
     private String description;
