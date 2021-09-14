@@ -2,7 +2,7 @@ package com.denis.model;
 
 import java.util.Date;
 
-public final class Employee {
+public class Employee {
     final private String name;
     final private Date birthday;
     final private Date startWork;
