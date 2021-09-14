@@ -1,4 +1,4 @@
-package com.denis.model;
+package com.denis.model.workers;
 
 import java.util.Date;
 

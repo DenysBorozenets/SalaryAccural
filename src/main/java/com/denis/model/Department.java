@@ -1,5 +1,7 @@
 package com.denis.model;
 
+import com.denis.model.workers.Employee;
+
 import java.util.*;
 
 public class Department {

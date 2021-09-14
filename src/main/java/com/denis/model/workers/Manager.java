@@ -1,10 +1,10 @@
-package com.denis.model;
+package com.denis.model.workers;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Manager extends Employee{
+public class Manager extends Employee {
 
     List<Employee> employeeList = new ArrayList<>();
 
