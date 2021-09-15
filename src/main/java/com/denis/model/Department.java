@@ -8,8 +8,12 @@ public class Department {
 
     private String name;
     private List<Employee> listEmployee = new ArrayList<>();
+    private Fund fund;
 
-    public Department(String name) {
+    public Department(String name, Fund fund) {
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(fund);
+        this.fund = fund;
         this.name = name;
     }
 
@@ -45,10 +49,12 @@ public class Department {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        //if (!(o instanceof Employee)) return false;
 
         Department department = (Department) o;
-        return name.equals(department.name) && listEmployee.equals(department.listEmployee);
+
+        return name.equals(department.name)
+                && listEmployee.equals(department.listEmployee)
+                && fund.equals(department.fund);
     }
 
     /**
@@ -57,8 +63,7 @@ public class Department {
     @Override
     public int hashCode() {
         int number = 31;
-        int result = name.hashCode() * number
-                + listEmployee.hashCode();
+        int result = ((name.hashCode() * number + listEmployee.hashCode()) * number + fund.hashCode()) * number;
         return result;
     }
 }

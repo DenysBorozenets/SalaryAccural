@@ -6,10 +6,22 @@ import java.util.List;
 
 public class Manager extends Employee {
 
-    List<Employee> employeeList = new ArrayList<>();
+    private List<Employee> employeeList = new ArrayList<>();
 
     public Manager(String name, Date birthday, Date startWork) {
         super(name, birthday, startWork);
+    }
+
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
+    public void setEmployeeList(List<Employee> employeeList) {
+        this.employeeList = employeeList;
+    }
+
+    public void addEmployee(Employee employee) {
+        employeeList.add(employee);
     }
 
     @Override

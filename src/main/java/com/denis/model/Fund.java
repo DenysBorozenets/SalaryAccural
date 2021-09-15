@@ -27,4 +27,19 @@ public class Fund {
     public void setSum(BigDecimal sum) {
         this.sum = sum;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Fund fund = (Fund) o;
+        return sum.equals(fund.sum) &&  balance == fund.balance;
+    }
+
+    @Override
+    public int hashCode() {
+        int number = 31;
+        int result = (sum.hashCode() * number + balance.hashCode()) * number;
+        return result;
+    }
 }
