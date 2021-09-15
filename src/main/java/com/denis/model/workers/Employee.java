@@ -13,6 +13,7 @@ public class Employee {
     private Date birthday;
     private Date startWork;
     private BigDecimal salary;
+    private boolean isCompanyFund;
 
     /**
      * @param name
@@ -55,6 +56,14 @@ public class Employee {
         if (salary.compareTo(Balance.MIN_SALARY) < 0) {
             throw new NotCorrectSalaryAmount(salary, Balance.MIN_SALARY);
         }
+    }
+
+    public boolean isCompanyFund() {
+        return isCompanyFund;
+    }
+
+    public void setCompanyFund(boolean companyFund) {
+        isCompanyFund = companyFund;
     }
 
     /**

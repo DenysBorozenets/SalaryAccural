@@ -1,6 +1,7 @@
 package com.denis.model;
 
 import com.denis.model.workers.Employee;
+import com.denis.model.workers.Manager;
 
 import java.util.*;
 
@@ -9,12 +10,15 @@ public class Department {
     private String name;
     private List<Employee> listEmployee = new ArrayList<>();
     private Fund fund;
+    private Manager manager;
 
-    public Department(String name, Fund fund) {
+    public Department(String name, Fund fund, Manager manager) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(fund);
+        Objects.requireNonNull(manager);
         this.fund = fund;
         this.name = name;
+        this.manager = manager;
     }
 
     public String getName() {
@@ -26,7 +30,7 @@ public class Department {
     }
 
     public List<Employee> getListEmployee() {
-        return listEmployee;
+        return manager.getEmployeeList();
     }
 
     public void setListEmployee(List<Employee> listEmployee) {
@@ -34,7 +38,7 @@ public class Department {
     }
 
     public void addEmployee(Employee employee) {
-        listEmployee.add(employee);
+        manager.addEmployee(employee);
     }
 
     /**
@@ -53,7 +57,7 @@ public class Department {
         Department department = (Department) o;
 
         return name.equals(department.name)
-                && listEmployee.equals(department.listEmployee)
+                && manager.equals(department.manager)
                 && fund.equals(department.fund);
     }
 
@@ -63,7 +67,7 @@ public class Department {
     @Override
     public int hashCode() {
         int number = 31;
-        int result = ((name.hashCode() * number + listEmployee.hashCode()) * number + fund.hashCode()) * number;
+        int result = ((name.hashCode() * number + manager.hashCode()) * number + fund.hashCode()) * number;
         return result;
     }
 }
