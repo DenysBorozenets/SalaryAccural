@@ -13,21 +13,31 @@ public class Employee {
     private Date birthday;
     private Date startWork;
     private BigDecimal salary;
-    private boolean isCompanyFund;
+
+    /**
+     *
+     * @param name
+     * @param birthday
+     * @param inputWork
+     * @throws NotCorrectSalaryAmount
+     */
+    public Employee(String name, Date birthday, Date inputWork) throws NotCorrectSalaryAmount {
+        this(name, birthday, inputWork, Config.MIN_ACCURAL);
+    }
 
     /**
      * @param name
      * @param birthday
      * @param startWork
      */
-    public Employee(String name, Date birthday, Date startWork) {
+    public Employee(String name, Date birthday, Date startWork, BigDecimal salary) throws NotCorrectSalaryAmount {
         Objects.requireNonNull(name);
         Objects.requireNonNull(birthday);
         Objects.requireNonNull(startWork);
         this.name = name;
         this.birthday = new Date(birthday.getTime());
         this.startWork = new Date(startWork.getTime());
-        this.salary = Config.MIN_ACCURAL;
+        setSalary(salary);
     }
 
     public String getName() {
@@ -56,14 +66,6 @@ public class Employee {
         if (salary.compareTo(Config.MIN_ACCURAL) < 0) {
             throw new NotCorrectSalaryAmount(salary, Config.MIN_ACCURAL);
         }
-    }
-
-    public boolean isCompanyFund() {
-        return isCompanyFund;
-    }
-
-    public void setCompanyFund(boolean companyFund) {
-        isCompanyFund = companyFund;
     }
 
     /**

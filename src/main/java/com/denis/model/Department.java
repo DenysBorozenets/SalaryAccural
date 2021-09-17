@@ -11,12 +11,26 @@ public class Department {
     private Fund fund;
     private Manager manager;
 
-    public Department(String name, Fund fund, Manager manager) {
+    public Department(String name, Manager manager) {
         Objects.requireNonNull(name);
-        Objects.requireNonNull(fund);
         Objects.requireNonNull(manager);
-        this.fund = fund;
         this.name = name;
+        this.manager = manager;
+    }
+
+    public Fund getFund() {
+        return fund;
+    }
+
+    public void setFund(Fund fund) {
+        this.fund = fund;
+    }
+
+    public Manager getManager() {
+        return manager;
+    }
+
+    public void setManager(Manager manager) {
         this.manager = manager;
     }
 

@@ -1,5 +1,8 @@
 package com.denis.model.workers;
 
+import com.denis.model.exception.NotCorrectSalaryAmount;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,11 +11,14 @@ public class OtherEmployee extends Employee {
     private String position;
     private String description;
 
-    public OtherEmployee(String name, Date birthday, Date startWork, String position, String description) {
+    public OtherEmployee(String name, String position,Date birthday, Date startWork) throws NotCorrectSalaryAmount {
         super(name, birthday, startWork);
+        this.position = position;
+    }
+    public OtherEmployee(String name, Date birthday, Date startWork, BigDecimal salary, String position) throws NotCorrectSalaryAmount {
+        super(name, birthday, startWork, salary);
         Objects.requireNonNull(position);
         this.position = position;
-        this.description = description;
     }
 
     public String getPosition() {
