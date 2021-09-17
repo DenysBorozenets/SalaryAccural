@@ -1,6 +1,6 @@
 package com.denis.model.workers;
 
-import com.denis.model.Balance;
+import com.denis.controller.Config;
 import com.denis.model.exception.NotCorrectSalaryAmount;
 
 import java.math.BigDecimal;
@@ -27,7 +27,7 @@ public class Employee {
         this.name = name;
         this.birthday = new Date(birthday.getTime());
         this.startWork = new Date(startWork.getTime());
-        this.salary = Balance.MIN_SALARY;
+        this.salary = Config.MIN_ACCURAL;
     }
 
     public String getName() {
@@ -53,8 +53,8 @@ public class Employee {
     }
 
     public void compareSalary(BigDecimal salary) throws NotCorrectSalaryAmount {
-        if (salary.compareTo(Balance.MIN_SALARY) < 0) {
-            throw new NotCorrectSalaryAmount(salary, Balance.MIN_SALARY);
+        if (salary.compareTo(Config.MIN_ACCURAL) < 0) {
+            throw new NotCorrectSalaryAmount(salary, Config.MIN_ACCURAL);
         }
     }
 

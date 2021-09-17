@@ -4,19 +4,23 @@ import java.math.BigDecimal;
 
 public class Fund {
 
-    private Balance.Balanced balance;
     private BigDecimal sum;
+    private Balance balance;
 
-    public Fund(Balance.Balanced balance, BigDecimal sum) {
+    public Fund(Balance balance) {
+        this(new BigDecimal("0"), balance);
+    }
+
+    public Fund(BigDecimal sum, Balance balance) {
         this.balance = balance;
         this.sum = sum;
     }
 
-    public Balance.Balanced getBalance() {
+    public Balance getBalance() {
         return balance;
     }
 
-    public void setBalance(Balance.Balanced balance) {
+    public void setBalance(Balance balance) {
         this.balance = balance;
     }
 
@@ -27,6 +31,8 @@ public class Fund {
     public void setSum(BigDecimal sum) {
         this.sum = sum;
     }
+
+    public enum Balance {BALANCED,UNBALANCED;}
 
     @Override
     public boolean equals(Object o) {

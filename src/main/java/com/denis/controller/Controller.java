@@ -21,5 +21,22 @@ public class Controller {
 
     public void fund(Scanner scanner) {
         view.printText(".....");
+        model.setCompanyFond(getAnswer(scanner));
+    }
+
+    public boolean getAnswer(Scanner scanner) {
+        view.printText(View.CHOOSE_YES_OR_NOT);
+        String input = "";
+        while (!(scanner.hasNext()
+                && ((input = scanner.nextLine()).equalsIgnoreCase("Yes")
+                || input.equalsIgnoreCase("No")))){
+            view.printText(View.WRONG);
+            view.printText(View.CHOOSE_YES_OR_NOT);
+        }
+        if (input.equalsIgnoreCase("Yes")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

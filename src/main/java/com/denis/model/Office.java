@@ -12,12 +12,22 @@ public class Office {
     private Employee headOfOffice;
     private List<Department> departList = new ArrayList<>();
     private Fund fund;
+    private boolean isCompanyFund;
 
     public Office(String name, Fund fund) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(fund);
         this.name = name;
         this.fund = fund;
+
+    }
+
+    public boolean isCompanyFund() {
+        return isCompanyFund;
+    }
+
+    public void setCompanyFund(boolean companyFund) {
+        isCompanyFund = companyFund;
     }
 
     public String getName() {

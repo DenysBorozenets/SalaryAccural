@@ -8,7 +8,6 @@ import java.util.*;
 public class Department {
 
     private String name;
-    private List<Employee> listEmployee = new ArrayList<>();
     private Fund fund;
     private Manager manager;
 
@@ -33,11 +32,7 @@ public class Department {
         return manager.getEmployeeList();
     }
 
-    public void setListEmployee(List<Employee> listEmployee) {
-        this.listEmployee = listEmployee;
-    }
-
-    public void addEmployee(Employee employee) {
+    public void addEmployee(Employee employee){
         manager.addEmployee(employee);
     }
 
