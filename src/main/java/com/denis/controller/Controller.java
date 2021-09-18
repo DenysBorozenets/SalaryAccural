@@ -1,8 +1,13 @@
 package com.denis.controller;
 
+import com.denis.model.Department;
+import com.denis.model.Fund;
 import com.denis.model.Model;
 import com.denis.view.View;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Controller {
@@ -16,27 +21,68 @@ public class Controller {
 
     public void process() {
         Scanner scanner = new Scanner(System.in);
-        fund(scanner);
+        Fund fundCompany = initFundWithSize(scanner, "company");
+        model.setFund(fundCompany);
+        initDepartmentTypeOffFund(scanner, model.getDepartmentList());
+        initOtherTypeOffFund(scanner);
+
     }
 
-    public void fund(Scanner scanner) {
-        view.printText(".....");
-        model.setCompanyFond(getAnswer(scanner));
+    public void initDepartmentTypeOffFund(Scanner scanner, List<Department> departmentList) {
+        for (Department d:model.getDepartmentList()) {
+            Fund fund = initFundWithSize(scanner, d.getName().toLowerCase(Locale.ROOT));
+            d.setFund(fund);
+        }
+    }
+
+    public void initOtherTypeOffFund(Scanner scanner) {
+        Fund fund = initFundWithoutSize(scanner, View.OTHER_NAME.toLowerCase(Locale.ROOT));
+    }
+
+    public Fund initFundWithSize(Scanner scanner, String fundName) {
+        BigDecimal sizeFund = getUserValueAnswer(scanner);
+        view.printText(String.format(View.IS_BALANCED_MASSAGE, fundName));
+        boolean isBalanced = getAnswer(scanner);
+        Fund.Balance balance = Fund.Balance.UNBALANCED;
+        if (isBalanced) {
+            balance = Fund.Balance.BALANCED;
+        }
+        return new Fund(sizeFund,balance);
+
     }
 
     public boolean getAnswer(Scanner scanner) {
         view.printText(View.CHOOSE_YES_OR_NOT);
         String input = "";
-        while (!(scanner.hasNext()
-                && ((input = scanner.nextLine()).equalsIgnoreCase("Yes")
+        while (!(scanner.hasNext() && ((input = scanner.next()).equalsIgnoreCase("Yes")
                 || input.equalsIgnoreCase("No")))){
             view.printText(View.WRONG);
             view.printText(View.CHOOSE_YES_OR_NOT);
         }
-        if (input.equalsIgnoreCase("Yes")) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
+
+    public BigDecimal getUserValueAnswer(Scanner scanner) {
+        view.printText(View.INPUT_SALARY_FUND);
+        String input = "";
+
+        while (!scanner.hasNextDouble()) {
+            view.printText(View.WRONG);
+            view.printText(View.INPUT_SALARY_FUND);
+            scanner.next();
+        }
+
+        return new BigDecimal(scanner.nextDouble());
+    }
+
+    public Fund initFundWithoutSize(Scanner scanner, String fundName) {
+        view.printText(String.format(View.IS_BALANCED_MASSAGE, fundName));
+        boolean isBalanced = getAnswer(scanner);
+        Fund.Balance balance = Fund.Balance.UNBALANCED;
+        if (isBalanced){
+            balance = Fund.Balance.BALANCED;
+        }
+        return new Fund(balance);
+    }
+
 }

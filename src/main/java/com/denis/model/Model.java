@@ -7,20 +7,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Model {
-    private List<Manager> managerList = new ArrayList<>();
+    private List<Department> departmentList = new ArrayList<>();
     private List<OtherEmployee> otherEmployeeList = new ArrayList<>();
-    private boolean isCompanyFond;
+    private Fund fund;
 
-    public Model(List<Manager> managerList, List<OtherEmployee> otherEmployeeList) {
-        this.managerList = managerList;
+    public Model(List<Department> departmentList, List<OtherEmployee> otherEmployeeList) {
+        this.departmentList = departmentList;
         this.otherEmployeeList = otherEmployeeList;
     }
 
-    public boolean isCompanyFond() {
-        return isCompanyFond;
+    public void addOtherEmployee(OtherEmployee otherEmployee) {
+        otherEmployeeList.add(otherEmployee);
     }
 
-    public void setCompanyFond(boolean companyFond) {
-        isCompanyFond = companyFond;
+    public void addDepartment(Department department) {
+        departmentList.add(department);
+    }
+
+    public Fund getFund() {
+        return fund;
+    }
+
+    public void setFund(Fund fund) {
+        this.fund = fund;
+    }
+
+    public List<Department> getDepartmentList() {
+        return departmentList;
+    }
+
+    public List<OtherEmployee> getOtherEmployeeList() {
+        return otherEmployeeList;
     }
 }

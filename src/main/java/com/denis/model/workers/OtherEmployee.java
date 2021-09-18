@@ -52,8 +52,7 @@ public class OtherEmployee extends Employee {
     @Override
     public int hashCode() {
         int number = 31;
-        int result = position.hashCode() * number
-                + description.hashCode() * number;
+        int result = (position.hashCode() * number + description.hashCode()) * number;
         return result;
     }
 }
