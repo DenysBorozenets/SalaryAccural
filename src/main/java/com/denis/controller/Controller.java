@@ -24,29 +24,33 @@ public class Controller {
         Fund fundCompany = initFundWithSize(scanner, "company");
         model.setFund(fundCompany);
         initDepartmentTypeOffFund(scanner, model.getDepartmentList());
-        initOtherTypeOffFund(scanner);
+        model.setFundTypeForOthers(initOtherTypeOffFund(scanner));
 
     }
 
     public void initDepartmentTypeOffFund(Scanner scanner, List<Department> departmentList) {
         for (Department d:model.getDepartmentList()) {
-            Fund fund = initFundWithSize(scanner, d.getName().toLowerCase(Locale.ROOT));
-            d.setFund(fund);
+//            Fund fund = initFundWithSize(scanner, d.getName().toLowerCase(Locale.ROOT));
+//            d.setFund(fund);
+            Fund.Balance fundType = initFundType(scanner, d.getName().toLowerCase(Locale.ROOT));
+            d.setFund(new Fund(fundType));
         }
     }
 
-    public void initOtherTypeOffFund(Scanner scanner) {
-        Fund fund = initFundWithoutSize(scanner, View.OTHER_NAME.toLowerCase(Locale.ROOT));
+    public Fund.Balance initOtherTypeOffFund(Scanner scanner) {
+        //Fund.Balance fund = initFundType(scanner, View.OTHER_NAME.toLowerCase(Locale.ROOT));
+        return initFundType(scanner, View.OTHER_NAME.toLowerCase(Locale.ROOT));
     }
 
     public Fund initFundWithSize(Scanner scanner, String fundName) {
         BigDecimal sizeFund = getUserValueAnswer(scanner);
-        view.printText(String.format(View.IS_BALANCED_MASSAGE, fundName));
-        boolean isBalanced = getAnswer(scanner);
-        Fund.Balance balance = Fund.Balance.UNBALANCED;
-        if (isBalanced) {
-            balance = Fund.Balance.BALANCED;
-        }
+//        view.printText(String.format(View.IS_BALANCED_MASSAGE, fundName));
+//        boolean isBalanced = getAnswer(scanner);
+//        Fund.Balance balance = Fund.Balance.UNBALANCED;
+//        if (isBalanced) {
+//            balance = Fund.Balance.BALANCED;
+//        }
+        Fund.Balance balance = initFundType(scanner, fundName);
         return new Fund(sizeFund,balance);
 
     }
@@ -75,14 +79,14 @@ public class Controller {
         return new BigDecimal(scanner.nextDouble());
     }
 
-    public Fund initFundWithoutSize(Scanner scanner, String fundName) {
+    public Fund.Balance initFundType(Scanner scanner, String fundName) {
         view.printText(String.format(View.IS_BALANCED_MASSAGE, fundName));
         boolean isBalanced = getAnswer(scanner);
         Fund.Balance balance = Fund.Balance.UNBALANCED;
         if (isBalanced){
             balance = Fund.Balance.BALANCED;
         }
-        return new Fund(balance);
+        return balance;
     }
 
 }

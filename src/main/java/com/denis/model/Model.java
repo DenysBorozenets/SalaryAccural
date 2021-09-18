@@ -10,10 +10,19 @@ public class Model {
     private List<Department> departmentList = new ArrayList<>();
     private List<OtherEmployee> otherEmployeeList = new ArrayList<>();
     private Fund fund;
+    private Fund.Balance fundTypeForOthers = Fund.Balance.BALANCED;
 
     public Model(List<Department> departmentList, List<OtherEmployee> otherEmployeeList) {
         this.departmentList = departmentList;
         this.otherEmployeeList = otherEmployeeList;
+    }
+
+    public Fund.Balance getFundTypeForOthers() {
+        return fundTypeForOthers;
+    }
+
+    public void setFundTypeForOthers(Fund.Balance fundTypeForOthers) {
+        this.fundTypeForOthers = fundTypeForOthers;
     }
 
     public void addOtherEmployee(OtherEmployee otherEmployee) {
