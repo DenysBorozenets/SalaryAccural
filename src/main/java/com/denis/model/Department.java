@@ -3,20 +3,20 @@ package com.denis.model;
 import com.denis.model.workers.Employee;
 import com.denis.model.workers.Manager;
 
+import java.math.BigDecimal;
 import java.util.*;
 
-public class Department {
+public abstract class Department<T> {
 
     private String name;
     private Fund fund;
-    private Manager manager;
 
-    public Department(String name, Manager manager) {
+    public Department(String name) {
         Objects.requireNonNull(name);
-        Objects.requireNonNull(manager);
         this.name = name;
-        this.manager = manager;
     }
+
+   abstract BigDecimal getRate();
 
     public Fund getFund() {
         return fund;
@@ -24,14 +24,6 @@ public class Department {
 
     public void setFund(Fund fund) {
         this.fund = fund;
-    }
-
-    public Manager getManager() {
-        return manager;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
     }
 
     public String getName() {
@@ -42,41 +34,8 @@ public class Department {
         this.name = name;
     }
 
-    public List<Employee> getListEmployee() {
-        return manager.getEmployeeList();
-    }
+    public abstract void addEmployee(T employee);
 
-    public void addEmployee(Employee employee){
-        manager.addEmployee(employee);
-    }
+    public abstract List<T> getEmployeeList();
 
-    /**
-     * from code example
-     *
-     * @param o
-     * @return
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        Department department = (Department) o;
-
-        return name.equals(department.name)
-                && manager.equals(department.manager)
-                && fund.equals(department.fund);
-    }
-
-    /**
-     * @return
-     */
-    @Override
-    public int hashCode() {
-        int number = 31;
-        int result = ((name.hashCode() * number + manager.hashCode()) * number + fund.hashCode()) * number;
-        return result;
-    }
 }

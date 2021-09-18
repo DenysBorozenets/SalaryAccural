@@ -2,10 +2,16 @@ package com.denis.controller;
 
 import com.denis.model.Department;
 import com.denis.model.Fund;
+import com.denis.model.ManagerDepartment;
 import com.denis.model.Model;
+import com.denis.model.pay.Payroll;
 import com.denis.view.View;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
@@ -21,17 +27,18 @@ public class Controller {
 
     public void process() {
         Scanner scanner = new Scanner(System.in);
-        Fund fundCompany = initFundWithSize(scanner, "company");
+        BigDecimal minValue = model.getMinFund();
+        Fund fundCompany = initFundWithSize(scanner, View.COMPANY_NAME.toLowerCase(Locale.ROOT), minValue);
         model.setFund(fundCompany);
-        initDepartmentTypeOffFund(scanner, model.getDepartmentList());
+        initDepartmentTypeOfFund(scanner, model.getDepartmentList());
         model.setFundTypeForOthers(initOtherTypeOffFund(scanner));
+        Payroll payroll = model.calculatePayroll(getUserCalcDateAnswer(scanner));
+        view.printPayroll(payroll);
 
     }
 
-    public void initDepartmentTypeOffFund(Scanner scanner, List<Department> departmentList) {
-        for (Department d:model.getDepartmentList()) {
-//            Fund fund = initFundWithSize(scanner, d.getName().toLowerCase(Locale.ROOT));
-//            d.setFund(fund);
+    public void initDepartmentTypeOfFund(Scanner scanner, List<ManagerDepartment> departmentList) {
+        for (ManagerDepartment d: departmentList) {
             Fund.Balance fundType = initFundType(scanner, d.getName().toLowerCase(Locale.ROOT));
             d.setFund(new Fund(fundType));
         }
@@ -42,14 +49,14 @@ public class Controller {
         return initFundType(scanner, View.OTHER_NAME.toLowerCase(Locale.ROOT));
     }
 
-    public Fund initFundWithSize(Scanner scanner, String fundName) {
-        BigDecimal sizeFund = getUserValueAnswer(scanner);
-//        view.printText(String.format(View.IS_BALANCED_MASSAGE, fundName));
-//        boolean isBalanced = getAnswer(scanner);
-//        Fund.Balance balance = Fund.Balance.UNBALANCED;
-//        if (isBalanced) {
-//            balance = Fund.Balance.BALANCED;
-//        }
+    public Fund initFundWithSize(Scanner scanner, String fundName, BigDecimal minValue) {
+
+        BigDecimal sizeFund = new BigDecimal("0");
+        view.printText(String.format(View.MIN_SALARY_FUND_MESSAGE, minValue.toString()));
+        while ((sizeFund = getUserValueAnswer(scanner)).compareTo(minValue)<0){
+            view.printText(View.WRONG_SALARY_FUND);
+            view.printText(String.format(View.MIN_SALARY_FUND_MESSAGE, minValue.toString()));
+        }
         Fund.Balance balance = initFundType(scanner, fundName);
         return new Fund(sizeFund,balance);
 
@@ -65,6 +72,30 @@ public class Controller {
         }
         return false;
     }
+
+    public Date getUserCalcDateAnswer(Scanner sc){
+        view.printText(View.INPUT_CALC_DATE);
+        String input = "";
+        Date date = null;
+        boolean isNotExceptionParse = false;
+        while (!isNotExceptionParse) {
+            while (!(sc.hasNext() && ((input = sc.next()).matches(View.INPUT_CALC_DATE_REGEX)))) {
+                view.printText(View.WRONG);
+                view.printText(View.INPUT_CALC_DATE);
+            }
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            isNotExceptionParse= true;
+            try {
+                date = formatter.parse(input);
+            } catch (ParseException e) {
+                view.printText(View.WRONG);
+                view.printText(View.INPUT_CALC_DATE);
+            }
+        }
+
+        return date;
+    }
+
 
     public BigDecimal getUserValueAnswer(Scanner scanner) {
         view.printText(View.INPUT_SALARY_FUND);

@@ -1,6 +1,7 @@
 package com.denis.model.database;
 
 import com.denis.model.Department;
+import com.denis.model.ManagerDepartment;
 import com.denis.model.exception.NotCorrectSalaryAmount;
 import com.denis.model.workers.Employee;
 import com.denis.model.workers.Manager;
@@ -13,8 +14,8 @@ import java.util.List;
 
 public class DataBase {
 
-    public static List<Department> initDepart() throws NotCorrectSalaryAmount {
-        List<Department> list = new ArrayList<>();
+    public static List<ManagerDepartment> initDepart() throws NotCorrectSalaryAmount {
+        List<ManagerDepartment> list = new ArrayList<>();
 
         Manager manager1 = new Manager("КОВАЛЕНКО", new Date(811081984), new Date(1536928415), new BigDecimal("8000"));
         manager1.addEmployee(new Employee("БОНДАР", new Date(937312384), new Date(1630499615),new BigDecimal("2000")));
@@ -25,7 +26,7 @@ public class DataBase {
         manager1.addEmployee(new Employee("КОЛОМІЄЦЬ", new Date(926685184), new Date(1630499615),new BigDecimal("3200")));
         manager1.addEmployee(new Employee("ПАНЧЕНКО", new Date(929363584), new Date(1630499615),new BigDecimal("2500")));
 
-        list.add(new Department("Payout", manager1));
+        list.add(new ManagerDepartment("Payout", manager1));
 
         Manager manager2 = new Manager("КОВАЛЕНКО", new Date(811081984), new Date(1536928415),new BigDecimal("12000"));
         manager2.addEmployee(new Employee("БОНДАР", new Date(937312384), new Date(1630499615),new BigDecimal("2000")));
@@ -36,7 +37,7 @@ public class DataBase {
         manager2.addEmployee(new Employee("КОЛОМІЄЦЬ", new Date(926685184), new Date(1630499615),new BigDecimal("3200")));
         manager2.addEmployee(new Employee("ПАНЧЕНКО", new Date(929363584), new Date(1630499615),new BigDecimal("2500")));
 
-        list.add(new Department("Economy", manager2));
+        list.add(new ManagerDepartment("Economy", manager2));
 
         Manager manager3 = new Manager("КОВАЛЕНКО", new Date(811081984), new Date(1536928415),new BigDecimal("22000"));
         manager3.addEmployee(new Employee("БОНДАР", new Date(937312384), new Date(1630499615),new BigDecimal("4200")));
@@ -47,7 +48,7 @@ public class DataBase {
         manager3.addEmployee(new Employee("КОЛОМІЄЦЬ", new Date(926685184), new Date(1630499615),new BigDecimal("2540")));
         manager3.addEmployee(new Employee("ПАНЧЕНКО", new Date(929363584), new Date(1630499615),new BigDecimal("3620")));
 
-        list.add(new Department("Development", manager3));
+        list.add(new ManagerDepartment("Development", manager3));
 
         return list;
     }
